@@ -1,12 +1,14 @@
-﻿using Newtonsoft.Json;
+﻿using ConsoleApp1;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ConsoleApp1
+namespace ConsoleApp2
 {
     class typeFormApi
     {
@@ -15,19 +17,19 @@ namespace ConsoleApp1
         static string id_question_nom_entreprise = "KA17sOqFVIRs";
         string id_question_activite = "vT94Udur6LMJ";
         string id_question_valeurs_entreprise = "vT94Udur6LMJ";
-        static  string id_question_perimetre = "tSnE2AtCvbha";
+        static string id_question_perimetre = "tSnE2AtCvbha";
         static string id_question_secteur = "uTsD2ifReBgq";
         string id_question_ess = "jnLHDRBh9mUc";
-        string id_question_stade_developpement = "qpk3VRSEbtXR"; 
-    //   string id_question_element_previsionnels = "";
-    static string id_question_date_creation = "f3w8Ii7p0VOa";
+        string id_question_stade_developpement = "qpk3VRSEbtXR";
+        //   string id_question_element_previsionnels = "";
+        static string id_question_date_creation = "f3w8Ii7p0VOa";
         string id_question_reconnaissance = "bWUfRAYhdsx4";
         string id_question_clients = "gvkiTAtWDLkY";
         string id_question_adresse = "AKO7wyDZgRBQ";
         string id_question_statut = "mLxFMwNNEIHh";
         string id_question_statut_coopératif = "LwLDUTsoTBVK";
         string id_question_statut_entreprise = "rLCJ9PsJ6sE3";
-        string id_question_statut_commercial = "ex044se03tDA";
+       static string id_question_statut_commercial = "ex044se03tDA";
         string id_question_association_fiscalisé = "heTubNAydq3H";
         string id_question_En_comptabilité = "m8M9bxnoSt2M";
         string id_question_En_juridique = "nRsWLFWXC7Uq";
@@ -44,10 +46,10 @@ namespace ConsoleApp1
         string id_question_fiscalité = "yrxBmgbHDgct";
         string id_question_adresse1 = "bfyd1jJxP8H7";
         string id_question_adresse2 = "E6Pn0cqLx2Dq";
-        string id_question_code_postal = "gxrPRaKSzYpd";
-        string id_question_commune = "U7ezEa0RKVs9";
-        string id_question_nom = "S8LVVheHTFP2";
-        string id_question_prenom = "cCIgtabVm6XW";
+        static string id_question_code_postal = "gxrPRaKSzYpd";
+        static string id_question_commune = "U7ezEa0RKVs9";
+        static string id_question_nom_contact = "S8LVVheHTFP2";
+        static string id_question_prenom_contact = "cCIgtabVm6XW";
         string id_question_telephone_fixe = "iUWCBeGpSaFB";
         string id_question_telephone_portable = "ayrojLe06MRf";
         string id_question_mail = "Tedy3ZeXYKx7";
@@ -145,8 +147,13 @@ namespace ConsoleApp1
             FormTypeForm.RootObject json_form = getForm(id_form);
             foreach (FormTypeForm.Field field in json_form.fields)
             {
+                if (field.title != null)
+                {
+                    Console.WriteLine("Question: " + field.title + " : " + field.id);
+                }
                 if (field.properties != null && field.properties.fields != null)
                 {
+                    
                     foreach (FormTypeForm.Field sous_question in field.properties.fields)
                     {
                         Console.WriteLine("Question: " + sous_question.title + " : " + sous_question.id);
@@ -177,7 +184,7 @@ namespace ConsoleApp1
                         {
                             if (answer.text != null)
                             {
-                                Console.WriteLine("Nom de l' entreprise: " + answer.text /*+ "landing_id: " + field.landing_id*/);
+                                Console.WriteLine("Nom de l' entreprise: " + answer.text  + "landing_id: " + field.landing_id);
                             }
                         }
 
@@ -208,19 +215,27 @@ namespace ConsoleApp1
         /*
          * retourne un objet infoEntreprise completé par les réponses des entreprises
              */
-        public  static InfoEntreprise getInfos(string landing_id)
+        public static InfoEntreprise getInfos(string landing_id)
         {
 
-            ConsoleApp1.InfoEntreprise info_entreprise = new ConsoleApp1.InfoEntreprise();
+            InfoEntreprise info_entreprise = new InfoEntreprise();
             info_entreprise.setNomEntreprise(getEntreprisesRep(landing_id, id_question_nom_entreprise));
-            info_entreprise.setSecteurEntreprise(getEntreprisesRep(landing_id, id_question_secteur));
-            info_entreprise.setPerimetreEntreprise(getEntreprisesRep(landing_id, id_question_perimetre));
+            //info_entreprise.setSecteurEntreprise(getEntreprisesRep(landing_id, id_question_secteur));
+            //info_entreprise.setPerimetreEntreprise(getEntreprisesRep(landing_id, id_question_perimetre));
+
+
+            info_entreprise.setStatut(getEntreprisesRep(landing_id, id_question_statut_commercial));//facultatif, 
+            info_entreprise.setNomContact(getEntreprisesRep(landing_id, id_question_nom_contact));
+            info_entreprise.setPrenomContact(getEntreprisesRep(landing_id, id_question_prenom_contact));
+            info_entreprise.setVille(getEntreprisesRep(landing_id, id_question_commune));
+            info_entreprise.setCodePostal(getEntreprisesRep(landing_id, id_question_code_postal));
+            
 
             info_entreprise.setDateEntreprise(getEntreprisesRep(landing_id, id_question_date_creation));
             //A finir
             return info_entreprise;
         }
-       
+
 
 
         /*

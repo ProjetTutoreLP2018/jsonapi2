@@ -15,43 +15,47 @@ namespace ConsoleApp1
         //private string landing_id;
 
 
-        private string nomEntreprise;
+        private string nomEntreprise; //raison sociale
         private string activite;
-        private string valeurs;
+        /*private string valeurs;
         private string perimetre;
         private string secteur;
         private string stade_developpement;
         private string element_previsionnel;
-        private string date_creation;
-        private string reconnaissance;
-        private string clients;
+        */private string date_creation;
+        /*private string reconnaissance;
+        private string clients;*/
         private string adresse;
         private string statut;
-        private string statut_coopératif;
-        private string statut_entreprise;
-        private string statut_commercial;
+        /*private string statut_coopératif;
+        private string statut_entreprise;*/
+
+        private string statut_commercial;//forme juridique
         private string association_fiscalise;
-        private string en_comptabilite;
-            
+        /*private string en_comptabilite;
+
+        
+
         private string en_juridique;
         private string en_rh;
         private string en_informatique;
-        private string entreprenariat_ou_association;
+        */
+        /*private string entreprenariat_ou_association;
         private string salarie;
         private string contrat;
         private string stage;
         private string service_civique;
-        private string benevole;
+        private string benevole;*/
 
-        private string gestion;
-        private string fiscalité;
+        //private string gestion;
+        //private string fiscalité;
         private string adresse1;
-        private string adresse2;
+        //private string adresse2;
         private string code_postal;
-        private string commune;
-        private string nom;
+        private string ville;
+        private string nom_contact;
         private string prenom;
-        private string telephone_fixe;
+       /* private string telephone_fixe;
         private string telephone_portable;
         private string mail;
         private string autre_personne;
@@ -62,7 +66,7 @@ namespace ConsoleApp1
         private string mail_autre;
         private string comment_avez_vous_connu_finacoop;
         private string avis_finacoop;
-        /* string id_question_sociétaire_finacoop = "WsvJjioLHcll";
+         string id_question_sociétaire_finacoop = "WsvJjioLHcll";
             string id_question_avis_du_formaulaire = "QOHi1qGOPWQv";
             string id_question_commentaire_ou_poeme = "RrPVEsv2iaQh";*/
 
@@ -70,31 +74,123 @@ namespace ConsoleApp1
 
         Dictionary<string, string> list;
 
-        public InfoEntreprise()
-        {
-
-        }
-
+        
         /*public static void getInfos()
         {
          
             getInfoEntreprise("5f1ccad09db138f184034ce06ba87f74", "KA17sOqFVIRs");
         }*/
 
-        public string getNom()
+        public string getFormeJuridique()
+        {
+            return statut_commercial;
+        }
+
+        public void setFormeJuridique(List<string>reponses)
+        {
+            if ((reponses != null) && (!reponses.Any()))
+            {
+                this.statut_commercial = reponses[0];
+            }
+        }
+
+        public string getNomEntreprise()
         {
             return nomEntreprise;
+        }
+        
+
+        public string getNomContact()
+        {
+            return nom_contact;
+        }
+
+        public void setNomContact(List<string> reponses)
+        {
+            if ((reponses != null) && (!reponses.Any()))
+            {
+                this.nom_contact = reponses[0];
+            }
+        }
+
+
+        public string getPrenomContact()
+        {
+            return prenom;
+        }
+
+        public void setPrenomContact(List<string> reponses)
+        {
+            if ((reponses != null) && (!reponses.Any()))
+            {
+                this.prenom = reponses[0];
+            }
+        }
+
+
+
+
+        public string getStatut()
+        {
+            return statut;
+        }
+        public void setStatut(List<string> reponses)
+        {
+            if ((reponses != null) && (!reponses.Any()))
+            {
+                this.statut = reponses[0];
+            }
+        }
+
+        public string getVille()
+        {
+            return ville;
+        }
+
+        public void setVille(List<string> reponses)
+        {
+            if ((reponses != null) && (!reponses.Any()))
+            {
+                this.ville= reponses[0];
+            }
         }
 
         public void setNomEntreprise(List<string> reponses)
         {
-            if(reponses != null)
+            if ((reponses != null) && (!reponses.Any()))
             {
                 this.nomEntreprise = reponses[0];
             }
-            
+
         }
-        public string getSecteur()
+
+
+        public string getCodePostal()
+        {
+            return code_postal;
+        }
+
+
+        public void setCodePostal(List<string> reponses)
+        {
+            if ((reponses != null) && (!reponses.Any()))
+            {
+                this.code_postal = reponses[0];
+            }
+
+        }
+
+        public string getActivite()
+        {
+            return activite;
+        }
+
+        public DateTime getDate()
+        {
+            return DateTime.ParseExact(date_creation, "dd/MM/yyyy HH:mm:ss", CultureInfo.InvariantCulture);
+        }
+
+        /*public string getSecteur()
         {
             return this.secteur;
         }
@@ -102,28 +198,26 @@ namespace ConsoleApp1
         {
             return this.perimetre;
         }
-        public DateTime getDate()
+       
+        public void setSecteurEntreprise(List<string> reponses)
         {
-            return DateTime.ParseExact(date_creation, "dd/MM/yyyy HH:mm:ss", CultureInfo.InvariantCulture);
-        }
-        public void setSecteurEntreprise(List<string> reponses) {
             if (reponses != null)
                 this.secteur = reponses[0];
-       }
+        }
         public void setPerimetreEntreprise(List<string> reponses)
         {
             if (reponses != null)
                 this.perimetre = reponses[0];
-        }
-       public void setDateEntreprise(List<string> reponses)
+        }*/
+        public void setDateEntreprise(List<string> reponses)
         {
-            if (reponses != null)
+            if ((reponses != null) && (!reponses.Any()))
             {
                 this.date_creation = reponses[0];
             }
-                
-        }
 
+        }
+        
 
     }
 }
