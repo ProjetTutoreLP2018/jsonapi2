@@ -15,64 +15,35 @@ namespace ConsoleApp1
         //private string landing_id;
 
 
-        private string nomEntreprise; //raison sociale
-        private string activite;
-        /*private string valeurs;
-        private string perimetre;
-        private string secteur;
-        private string stade_developpement;
-        private string element_previsionnel;
-        */private string date_creation;
-        /*private string reconnaissance;
-        private string clients;*/
-        private string adresse;
-        private string statut;
-        /*private string statut_coopératif;
-        private string statut_entreprise;*/
+        private string nomEntreprise { get; set; } //raison sociale
+        private string activite { get; set; }
+        private string date_creation;
+        private string adresse { get; set; }
+        private string statut { get; set; }
 
         private string statut_commercial;//forme juridique
-        private string association_fiscalise;
-        /*private string en_comptabilite;
+        private string association_fiscalise { get; set; }
 
-        
-
-        private string en_juridique;
-        private string en_rh;
-        private string en_informatique;
-        */
-        /*private string entreprenariat_ou_association;
-        private string salarie;
-        private string contrat;
-        private string stage;
-        private string service_civique;
-        private string benevole;*/
-
-        //private string gestion;
-        //private string fiscalité;
-        private string adresse1;
-        //private string adresse2;
-        private string code_postal;
-        private string ville;
-        private string nom_contact;
-        private string prenom;
-       /* private string telephone_fixe;
-        private string telephone_portable;
-        private string mail;
-        private string autre_personne;
-        private string nom_autre;
-        private string prenom_autre;
-        private string telephone_fixe_autre;
-        private string telephone_portable_autre;
-        private string mail_autre;
-        private string comment_avez_vous_connu_finacoop;
-        private string avis_finacoop;
-         string id_question_sociétaire_finacoop = "WsvJjioLHcll";
-            string id_question_avis_du_formaulaire = "QOHi1qGOPWQv";
-            string id_question_commentaire_ou_poeme = "RrPVEsv2iaQh";*/
+        private string adresse1 { get; set; }
+        private string code_postal { get; set; }
+        private string ville { get; set; }
+        private string nom_contact { get; set; }
+        private string prenom { get; set; }
+        private string id_session { get; set; }
 
 
+        private string raison_sociale { get; set; }
+        private string annee_exercice;
+        private string presentation { get; set; }
 
-        Dictionary<string, string> list;
+        private string fonction { get; set; }
+        private string ca { get; set; }
+        private string effectif { get; set; }
+        private string organisation_comptable { get; set; }
+        private string volume_recette { get; set; }
+        private string date_immatriculation { get; set; }
+        private string lieu_immatriculation { get; set; }
+
 
         
         /*public static void getInfos()
@@ -81,17 +52,26 @@ namespace ConsoleApp1
             getInfoEntreprise("5f1ccad09db138f184034ce06ba87f74", "KA17sOqFVIRs");
         }*/
 
+            public string getIdSession()
+        {
+            return id_session;
+        }
+
+        public void setIdSession(string id_session)
+        {
+            this.id_session = id_session;
+        }
+
         public string getFormeJuridique()
         {
             return statut_commercial;
         }
 
-        public void setFormeJuridique(List<string>reponses)
+        public void setFormeJuridique(string reponse)
         {
-            if ((reponses != null) && (!reponses.Any()))
-            {
-                this.statut_commercial = reponses[0];
-            }
+            
+                this.statut_commercial = reponse;
+            
         }
 
         public string getNomEntreprise()
@@ -105,11 +85,11 @@ namespace ConsoleApp1
             return nom_contact;
         }
 
-        public void setNomContact(List<string> reponses)
+        public void setNomContact(string reponse)
         {
-            if ((reponses != null) && (!reponses.Any()))
+            if (reponse != null)
             {
-                this.nom_contact = reponses[0];
+                this.nom_contact = reponse;
             }
         }
 
@@ -119,11 +99,11 @@ namespace ConsoleApp1
             return prenom;
         }
 
-        public void setPrenomContact(List<string> reponses)
+        public void setPrenomContact( string reponse)
         {
-            if ((reponses != null) && (!reponses.Any()))
+            if (reponse != null)
             {
-                this.prenom = reponses[0];
+                this.prenom = reponse;
             }
         }
 
@@ -134,11 +114,11 @@ namespace ConsoleApp1
         {
             return statut;
         }
-        public void setStatut(List<string> reponses)
+        public void setStatut(string reponse)
         {
-            if ((reponses != null) && (!reponses.Any()))
+            if ((reponse != null))
             {
-                this.statut = reponses[0];
+                this.statut = reponse;
             }
         }
 
@@ -147,19 +127,19 @@ namespace ConsoleApp1
             return ville;
         }
 
-        public void setVille(List<string> reponses)
+        public void setVille(string reponse)
         {
-            if ((reponses != null) && (!reponses.Any()))
+            if (reponse != null)
             {
-                this.ville= reponses[0];
+                this.ville= reponse;
             }
         }
 
-        public void setNomEntreprise(List<string> reponses)
+        public void setNomEntreprise(string reponse)
         {
-            if ((reponses != null) && (!reponses.Any()))
+            if (reponse != null)
             {
-                this.nomEntreprise = reponses[0];
+                this.nomEntreprise = reponse;
             }
 
         }
@@ -171,11 +151,11 @@ namespace ConsoleApp1
         }
 
 
-        public void setCodePostal(List<string> reponses)
+        public void setCodePostal(string reponse)
         {
-            if ((reponses != null) && (!reponses.Any()))
+            if (reponse != null)
             {
-                this.code_postal = reponses[0];
+                this.code_postal = reponse;
             }
 
         }
@@ -190,34 +170,129 @@ namespace ConsoleApp1
             return DateTime.ParseExact(date_creation, "dd/MM/yyyy HH:mm:ss", CultureInfo.InvariantCulture);
         }
 
-        /*public string getSecteur()
+        
+        public void setDateEntreprise(string reponse)
         {
-            return this.secteur;
-        }
-        public string getPerimetre()
-        {
-            return this.perimetre;
-        }
-       
-        public void setSecteurEntreprise(List<string> reponses)
-        {
-            if (reponses != null)
-                this.secteur = reponses[0];
-        }
-        public void setPerimetreEntreprise(List<string> reponses)
-        {
-            if (reponses != null)
-                this.perimetre = reponses[0];
-        }*/
-        public void setDateEntreprise(List<string> reponses)
-        {
-            if ((reponses != null) && (!reponses.Any()))
+            if (reponse != null)
             {
-                this.date_creation = reponses[0];
+                this.date_creation = reponse;
             }
 
         }
+
+
+        public string getRaisonSociale()
+        {
+            return raison_sociale;
+        }
+
+        public void setRaisonSociale(string raison_sociale)
+        {
+            this.raison_sociale = raison_sociale;
+        }
+
+        public string getAnneeExercice()
+        {
+            return annee_exercice;
+        }
+
+        public void setAnneeExercice(string annee_exercice)
+        {
+            this.annee_exercice = annee_exercice;
+        }
+
+        public string getPresentation()
+        {
+            return presentation;
+        }
+
+        public void setPresentation(string presentation)
+        {
+            this.presentation = presentation;
+        }
+
         
+
+        public string getPrenom()
+        {
+            return prenom;
+        }
+
+        public void setPrenom(string prenom)
+        {
+            this.prenom = prenom;
+        }
+
+        public string getFonction()
+        {
+            return fonction;
+        }
+
+        public void setFonction(string fonction)
+        {
+            this.fonction = fonction;
+        }
+
+        public string getCa()
+        {
+            return ca;
+        }
+
+        public void setCa(string ca)
+        {
+            this.ca = ca;
+        }
+
+        public string getEffectif()
+        {
+            return effectif;
+        }
+
+        public void setEffectif(string effectif)
+        {
+            this.effectif = effectif;
+        }
+
+        public string getOrganisationComptable()
+        {
+            return organisation_comptable;
+        }
+
+        public void setOrganisationComptable(string organisation_comptable)
+        {
+            this.organisation_comptable = organisation_comptable;
+        }
+
+        public string getVolumeRecette()
+        {
+            return volume_recette;
+        }
+
+        public void setVolumeRecette(string volume_recette)
+        {
+            this.volume_recette = volume_recette;
+        }
+
+        public string getDateImmatriculation()
+        {
+            return date_immatriculation;
+        }
+
+        public void setDateImmatriculation(string date_immatriculation)
+        {
+            this.date_immatriculation = date_immatriculation;
+        }
+
+        public string getLieuImmatriculation()
+        {
+            return lieu_immatriculation;
+        }
+
+        public void setLieuImmatriculation(string lieu_immatriculation)
+        {
+            this.lieu_immatriculation = lieu_immatriculation;
+        }
+
 
     }
 }
