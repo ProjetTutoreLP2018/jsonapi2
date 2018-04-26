@@ -1,21 +1,28 @@
-﻿using System;
+﻿using ConsoleApp1;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace app_lp
-{
+{/// <summary>
+/// cette classe permet implementer les methodes des deux formulaires
+/// </summary>
     abstract class FormulaireAbstract
     {
         public AnswerTypeForm.RootObject json_answers { get; set; }
-        public  string id_question_nom_entreprise;
+     
 
 
-        public abstract  void AddInfos(InfoEntreprise info_entreprise,  string landing_id);
+        public abstract void AddInfos(InfoEntreprise info_entreprise, string landing_id);
 
-
+       /// <summary>
+       /// cette foncton verifie si le nom existe dans la liste des informations de l'entreprise
+       /// </summary>
+       /// <param name="nom">nom de l'entreprise </param>
+       /// <returns>InfoEntreprise|null</returns>
         public InfoEntreprise getInfosEntrepriseByNom(string nom)
         {
-            foreach (InfoEntreprise item in getInfosList())
+            foreach (InfoEntreprise item in getInfoEntreprises())
             {
                 if (item.nomEntreprise == nom)
                 {
@@ -24,24 +31,32 @@ namespace app_lp
             }
             return null;
         }
-
-        public List<InfoEntreprise> getInfosList()
+        /// <summary>
+        /// cette fonction récupere la liste des informations des entreprises
+        /// </summary>
+        /// <returns>une liste</returns>
+        public List<InfoEntreprise> getInfoEntreprises()
         {
-            //Récupère toutes les informations sur les entreprises.
+          
 
 
             List<string> id_list = getEntreprisesIdList();
             List<InfoEntreprise> infos_list = new List<InfoEntreprise>();
             foreach (string id_entreprise in id_list)
             {
-                infos_list.Add(getInfos(id_entreprise));
+                infos_list.Add(getInfoEntreprise(id_entreprise));
             }
 
             return infos_list;
 
         }
+        /// <summary>
+        /// A partir de landing_id, cette fonction retourne les informations d'une entreprise
+        /// </summary>
+        /// <param name="landing_id"></param>
+        /// <returns>info entreprise</returns>
 
-        public InfoEntreprise getInfos(string landing_id)
+        public InfoEntreprise getInfoEntreprise(string landing_id)
         {
 
             InfoEntreprise info_entreprise = new InfoEntreprise();
@@ -52,7 +67,10 @@ namespace app_lp
             return info_entreprise;
         }
 
-
+        /// <summary>
+        /// cette fonction permet de récuperer la liste des landing_id
+        /// </summary>
+        /// <returns>une liste de landing_id</returns>
         public List<string> getEntreprisesIdList()
         {
             List<string> list_id_entreprises = new List<string>();
@@ -72,9 +90,14 @@ namespace app_lp
             return list_id_entreprises;
         }
 
+        /// <summary>
+        /// cette fonction permet de recupérer les réponses d'une question d'un client
+        /// </summary>
+        /// <param name="landing_id"></param>
+        /// <param name="id_question"></param>
+        /// <returns>une liste de reponses de type string  | null</returns>
 
-
-        public  List<string> getEntreprisesRep(string landing_id,  string id_question)
+        public List<string> getEntrepriseReponses(string landing_id, string id_question)
         {
             List<string> mylist = new List<string>();
             if (json_answers != null && json_answers.items != null)
@@ -155,23 +178,24 @@ namespace app_lp
             }
             else
             {
-                Console.WriteLine("Pas de réponses");
-
+                return null;
 
             }
             return mylist;
         }
 
-
+        /// <summary>
+        /// cette fonction permet de recuperer les noms des entreprises
+        /// </summary>
+        /// <param name="id_question_nom_entreprise"></param>
+        /// <returns> une liste des noms des entreprises </returns>
 
 
         public List<string> getNomEntreprises(string id_question_nom_entreprise)
         {
             List<string> nom_entreprises = new List<string>();
-            //AnswerTypeForm.RootObject json_answers = getAnswers(id_form);
-
-
-            foreach (AnswerTypeForm.Item field in json_answers.items)
+      
+         foreach (AnswerTypeForm.Item field in json_answers.items)
             {
                 if (field.answers != null)
                 {
@@ -182,7 +206,7 @@ namespace app_lp
                             if (answer.text != null)
                             {
                                 nom_entreprises.Add(answer.text);
-                                // Console.WriteLine("Nom de l' entreprise: " + answer.text  + "landing_id: " + field.landing_id);
+
                             }
                         }
 
@@ -192,5 +216,56 @@ namespace app_lp
             return nom_entreprises;
 
         }
+
+        /// <summary>
+        /// cette fonction permet de lier les informations des deux formulaires 
+        /// puis retourner un objet entreprise
+        /// </summary>
+        /// <param name="form1"></param>
+        /// <param name="form2"></param>
+        /// <param name="nom_entreprise"></param>
+        /// <returns>infos entreprise</returns>
+        public static InfoEntreprise getInfoEntrepriseForm1Form2(Formulaire1 form1,Formulaire2 form2,  string nom_entreprise)
+           {
+               InfoEntreprise entreprise_form1 =  form1.getInfosEntrepriseByNom(nom_entreprise);
+               InfoEntreprise entreprise_form2 = form2.getInfosEntrepriseByNom(nom_entreprise);
+            string landing_id1 = form1.getLandingIdByNom(nom_entreprise);
+            string landing_id2 = form2.getLandingIdByNom(nom_entreprise);
+
+            if(landing_id1 == null || landing_id2 == null)
+            {
+                return null;
+            }
+
+            InfoEntreprise merge_info_entreprise = new InfoEntreprise();
+
+            form1.AddInfos(merge_info_entreprise, landing_id1);
+            form2.AddInfos(merge_info_entreprise, landing_id2);
+
+            return merge_info_entreprise;
+        } 
+
+        /// <summary>
+        /// cette fonction permet de recuper un landing_id
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns>landing_id | null</returns>
+        public  string getLandingIdByNom(string name)
+        {
+            List<string> landing_id_list = getEntreprisesIdList();
+
+            foreach(string landing_id in landing_id_list)
+            {
+                if(getInfoEntreprise(landing_id).nomEntreprise == name)
+                {
+                    return landing_id;
+                }
+            }
+
+
+            return null;
+        }
+
+        
     }
 }

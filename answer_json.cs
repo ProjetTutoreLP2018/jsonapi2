@@ -1,9 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace AnswerTypeForm
-{
+{/// <summary>
+/// ces classes permettent de stocker les reponses
+/// </summary>
     public class Metadata
     {
         public string user_agent { get; set; }

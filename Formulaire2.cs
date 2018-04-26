@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ConsoleApp1;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,19 +22,34 @@ namespace app_lp
         public const string id_question_date_immatriculation = "eJ0ffCVbctSs";
         public const string id_question_lieu_immatriculation = "SFiOJCnku9bF";
 
+        /// <summary>
+        /// cette fonction permet récuperer les informations d'une entreprise(par rapport au  Formulaires 2)
+        /// </summary>
+        /// <param name="info_entreprise"></param>
+        /// <param name="landing_id"></param>
 
 
-        
 
 
-        public override void AddInfos(InfoEntreprise info_entreprise,  string landing_id)
+        public override void AddInfos(InfoEntreprise info_entreprise, string landing_id)
         {
-            info_entreprise.ca = getEntreprisesRep(landing_id, id_question_ca).FirstOrDefault();
-            info_entreprise.annee_exercice = getEntreprisesRep(landing_id, id_question_annee_exercice).FirstOrDefault();
-            info_entreprise.raison_sociale = getEntreprisesRep(landing_id, id_question_nom_entreprise).FirstOrDefault();
-            info_entreprise.fonction = getEntreprisesRep(landing_id, id_question_fonction).FirstOrDefault();
-            info_entreprise.effectif = getEntreprisesRep(landing_id, id_question_effectif).FirstOrDefault();
-            
+            info_entreprise.ca = getEntrepriseReponses(landing_id, id_question_ca).FirstOrDefault();
+            info_entreprise.annee_exercice = getEntrepriseReponses(landing_id, id_question_annee_exercice).FirstOrDefault();
+            info_entreprise.raison_sociale = getEntrepriseReponses(landing_id, id_question_nom_entreprise).FirstOrDefault();
+            info_entreprise.fonction = getEntrepriseReponses(landing_id, id_question_fonction).FirstOrDefault();
+            info_entreprise.effectif = getEntrepriseReponses(landing_id, id_question_effectif).FirstOrDefault();
+            info_entreprise.nomEntreprise = getEntrepriseReponses(landing_id, id_question_nom_entreprise).FirstOrDefault();
+
+            info_entreprise.nom_contact = getEntrepriseReponses(landing_id, id_question_nom).FirstOrDefault();
+
+
+
+            info_entreprise.organisation_comptable = getEntrepriseReponses(landing_id, id_question_organisation_comptable).FirstOrDefault();
+            info_entreprise.volume_recette = getEntrepriseReponses(landing_id, id_question_volume_recette).FirstOrDefault();
+            info_entreprise.date_immatriculation = getEntrepriseReponses(landing_id, id_question_date_immatriculation).FirstOrDefault();
+            info_entreprise.lieu_immatriculation = getEntrepriseReponses(landing_id, id_question_lieu_immatriculation).FirstOrDefault();
+
+
         }
 
 

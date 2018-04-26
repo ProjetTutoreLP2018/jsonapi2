@@ -6,8 +6,9 @@ namespace app_lp
 {
     class InfoEntreprise
     {
-        //private string landing_id;
-
+    /// <summary>
+    /// cette classe permet de renseigner les informations de l'entreprise
+    /// </summary>
 
         public string nomEntreprise { get; set; } //raison sociale
         public string activite { get; set; }
@@ -40,9 +41,9 @@ namespace app_lp
 
 
 
-       
 
-       
+
+
 
         public DateTime getDate()
         {
@@ -50,7 +51,7 @@ namespace app_lp
         }
 
 
-        
+
 
 
 
