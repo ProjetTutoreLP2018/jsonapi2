@@ -191,7 +191,7 @@ namespace app_lp
         /// <returns> une liste des noms des entreprises </returns>
 
 
-        public List<string> getNomEntreprises(string id_question_nom_entreprise)
+        public  List<string> getNomEntreprises(string id_question_nom_entreprise)
         {
             List<string> nom_entreprises = new List<string>();
       
@@ -253,19 +253,22 @@ namespace app_lp
         public  string getLandingIdByNom(string name)
         {
             List<string> landing_id_list = getEntreprisesIdList();
-
+            InfoEntreprise info = new InfoEntreprise();
             foreach(string landing_id in landing_id_list)
             {
-                if(getInfoEntreprise(landing_id).nomEntreprise == name)
-                {
+                info = getInfoEntreprise(landing_id);
+                if(info != null && info.nomEntreprise != null && info.nomEntreprise.Equals(name))
+                
                     return landing_id;
                 }
-            }
-
-
             return null;
         }
 
-        
+
+            
     }
+ 
+
+        
 }
+
