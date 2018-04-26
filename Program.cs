@@ -1,11 +1,8 @@
-﻿using ConsoleApp1;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
-namespace ConsoleApp2
+namespace app_lp
 {
     class Program
     {
@@ -14,30 +11,45 @@ namespace ConsoleApp2
             //RootObject json_forms = getForms().Result;
 
             typeFormApi tp = new typeFormApi("C4yr7FzMfPjiXd6QRMt1ypPT1tUWMbYvk4UQgxdAnrmL");
-
+            Formulaire1 formulaire_1 = new Formulaire1();
+            Formulaire2 formulaire_2 = new Formulaire2();
             tp.getForms();
             FormTypeForm.RootObject json_form = tp.getForm("YuE8Lp");
-            //FormTypeForm.RootObject json_forms = typeFormApi.getForms();
+            
+            FormTypeForm.RootObject json_forms = tp.getForms();
             //List<string> d= getEntreprisesRep();
+            formulaire_1.json_answers = typeFormApi.getAnswers(tp.getToken(), "YuE8Lp");
+
+            formulaire_2.json_answers = typeFormApi.getAnswers(tp.getToken(), "OeFASu");
+            
+
+
+            //AnswerTypeForm.RootObject l = formulaire_2.json_answers;
 
             //
 
             //typeFormApi.json_answers = typeFormApi.getForms();
 
-            tp.setJsonAnswers(typeFormApi.getAnswers(tp.getToken(), "YuE8Lp"));
+            //tp.setJsonAnswers();
             //List<string>questions =  tp.getQuestions("YuE8Lp"); 
 
             //AnswerTypeForm.RootObject json_answers = typeFormApi.getAnswers(typeFormApi.id_form);
+            //"Y83NJ0CQrBsq" form
 
-            //typeFormApi.getNomEntreprises("Y83NJ0CQrBsq");
+            //tp.getQuestions("OeFASu");
 
-            /*foreach (string f in tp.getEntreprisesRep("5f1ccad09db138f184034ce06ba87f74", "vT94Udur6LMJ"))
+            /*foreach (string f in formulaire_1.getNomEntreprises(Formulaire1.id_question_nom_entreprise))
+            {
+                Console.WriteLine(f);
+            }*/
+            /*foreach (string f in tp.getQuestions("OeFASu"))
             {
                 Console.WriteLine(f);
             }*/
 
 
-            InfoEntreprise info_entreprise2 = tp.getInfosEntrepriseByNom("finacoop");
+
+            InfoEntreprise info_entreprise2 = formulaire_1.getInfosEntrepriseByNom("finacoop");
 
             /*foreach(string t in tp.getNomEntreprises("YuE8Lp"))
             {
@@ -50,12 +62,12 @@ namespace ConsoleApp2
             }*/
 
 
-            foreach (InfoEntreprise info_entreprise in tp.getInfosList())
+            foreach (InfoEntreprise info_entreprise in formulaire_2.getInfosList())
             {
-                Console.WriteLine(info_entreprise.getNomEntreprise());
+                Console.WriteLine(info_entreprise.ca);
             }
 
-            //InfoEntreprise info = tp.getInfos("5f1ccad09db138f184034ce06ba87f74");
+            InfoEntreprise info = formulaire_1.getInfos("5f1ccad09db138f184034ce06ba87f74");
             //Console.WriteLine(info.getNomEntreprise());
 
             //Console.WriteLine(info.getNomEntreprise());

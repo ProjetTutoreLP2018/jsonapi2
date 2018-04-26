@@ -2,16 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
-namespace ConsoleApp2
+namespace app_lp
 {
-
-
-
-    public class Formulaire2
+    class Formulaire2 : FormulaireAbstract
     {
-        public const string id_question_raison_sociale = "t8sY49V9KNrO";
+        new public const string id_question_nom_entreprise = "t8sY49V9KNrO";
+        //public const string id_question_raison_sociale = "t8sY49V9KNrO";
         public const string id_question_annee_exercice = "UvkGZwgvv4ew";
         public const string id_question_presentation = "XHnKoFryrUed";
         public const string id_question_nom = "Y83NJ0CQrBsq";
@@ -25,8 +22,21 @@ namespace ConsoleApp2
         public const string id_question_lieu_immatriculation = "SFiOJCnku9bF";
 
 
+
         
 
-       
+
+        public override void AddInfos(InfoEntreprise info_entreprise,  string landing_id)
+        {
+            info_entreprise.ca = getEntreprisesRep(landing_id, id_question_ca).FirstOrDefault();
+            info_entreprise.annee_exercice = getEntreprisesRep(landing_id, id_question_annee_exercice).FirstOrDefault();
+            info_entreprise.raison_sociale = getEntreprisesRep(landing_id, id_question_nom_entreprise).FirstOrDefault();
+            info_entreprise.fonction = getEntreprisesRep(landing_id, id_question_fonction).FirstOrDefault();
+            info_entreprise.effectif = getEntreprisesRep(landing_id, id_question_effectif).FirstOrDefault();
+            
+        }
+
+
+
     }
 }
