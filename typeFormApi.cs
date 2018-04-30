@@ -24,26 +24,26 @@ namespace app_lp
 
 
 
-        public FormTypeForm.RootObject getForm(string id_form)
+        public async Task<FormTypeForm.RootObject> getForm(string id_form)
         {
 
             string url = "https://api.typeform.com/forms/" + id_form;
-            string outputJson = getJson(url, token).Result;
+            string outputJson = await getJson(url, token);
 
             FormTypeForm.RootObject res = JsonConvert.DeserializeObject<FormTypeForm.RootObject>(outputJson);
 
 
             return res;
         }
-        
-        public static AnswerTypeForm.RootObject getAnswers(string token, string id_form)
+
+        public async static Task<AnswerTypeForm.RootObject> getAnswers(string token, string id_form)
         {
 
 
             string url = "https://api.typeform.com/forms/" + id_form + "/responses";
 
 
-            string outputJson = getJson(url, token).Result;
+            string outputJson = await getJson(url, token);
             AnswerTypeForm.RootObject res = JsonConvert.DeserializeObject<AnswerTypeForm.RootObject>(outputJson);
             return res;
 
@@ -63,7 +63,38 @@ namespace app_lp
             }
         }
 
+        /*public List<string> getQuestions(string id_form)
+        {
+            List<string> questions = new List<string>();
 
-          
+
+            FormTypeForm.RootObject json_form = getForm(id_form).Result;
+            foreach (FormTypeForm.Field field in json_form.fields)
+            {
+
+                if (field.title != null)
+                {
+                    questions.Add(field.title);
+                    Console.WriteLine("Question: " + field.title + " : " + field.id + "\n");
+                }
+                if (field.properties != null && field.properties.fields != null)
+                {
+
+
+                    foreach (FormTypeForm.Field sous_question in field.properties.fields)
+                    {
+                        questions.Add(sous_question.title);
+
+                        Console.WriteLine("Question: " + sous_question.title + " : " + sous_question.id);
+
+
+                    }
+
+                }
+
+            }
+            return questions;
+        }*/
+
     }
 }

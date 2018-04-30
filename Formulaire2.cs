@@ -1,4 +1,4 @@
-﻿using ConsoleApp1;
+﻿
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,7 +21,7 @@ namespace app_lp
         public const string id_question_volume_recette = "nXMR214HsT9T";
         public const string id_question_date_immatriculation = "eJ0ffCVbctSs";
         public const string id_question_lieu_immatriculation = "SFiOJCnku9bF";
-
+        public const string id_question_civilite = "XHnKoFryrUed";
         /// <summary>
         /// cette fonction permet récuperer les informations d'une entreprise(par rapport au  Formulaires 2)
         /// </summary>
@@ -42,7 +42,7 @@ namespace app_lp
 
             info_entreprise.nom_contact = getEntrepriseReponses(landing_id, id_question_nom).FirstOrDefault();
 
-
+            info_entreprise.civilite = getEntrepriseReponses(landing_id, id_question_civilite).FirstOrDefault();
 
             info_entreprise.organisation_comptable = getEntrepriseReponses(landing_id, id_question_organisation_comptable).FirstOrDefault();
             info_entreprise.volume_recette = getEntrepriseReponses(landing_id, id_question_volume_recette).FirstOrDefault();

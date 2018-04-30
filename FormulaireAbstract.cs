@@ -1,4 +1,4 @@
-﻿using ConsoleApp1;
+﻿
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -10,24 +10,28 @@ namespace app_lp
     abstract class FormulaireAbstract
     {
         public AnswerTypeForm.RootObject json_answers { get; set; }
-     
+
 
 
         public abstract void AddInfos(InfoEntreprise info_entreprise, string landing_id);
 
-       /// <summary>
-       /// cette foncton verifie si le nom existe dans la liste des informations de l'entreprise
-       /// </summary>
-       /// <param name="nom">nom de l'entreprise </param>
-       /// <returns>InfoEntreprise|null</returns>
+        /// <summary>
+        /// cette foncton verifie si le nom existe dans la liste des informations de l'entreprise
+        /// </summary>
+        /// <param name="nom">nom de l'entreprise </param>
+        /// <returns>InfoEntreprise|null</returns>
         public InfoEntreprise getInfosEntrepriseByNom(string nom)
         {
             foreach (InfoEntreprise item in getInfoEntreprises())
             {
-                if (item.nomEntreprise == nom)
+                if (item.nomEntreprise != null)
                 {
-                    return item;
+                    if (item.nomEntreprise.Trim().ToLower().Equals(nom.Trim().ToLower()))
+                    {
+                        return item;
+                    }
                 }
+
             }
             return null;
         }
@@ -37,7 +41,7 @@ namespace app_lp
         /// <returns>une liste</returns>
         public List<InfoEntreprise> getInfoEntreprises()
         {
-          
+
 
 
             List<string> id_list = getEntreprisesIdList();
@@ -121,10 +125,13 @@ namespace app_lp
 
                                 else if (answer.choices != null)
                                 {
-                                    foreach (string choix in answer.choices.labels)
+                                    if (answer.choices.labels != null)
                                     {
-                                        mylist.Add(choix);
+                                        foreach (string choix in answer.choices.labels)
+                                        {
+                                            mylist.Add(choix);
 
+                                        }
                                     }
                                 }
 
@@ -191,11 +198,16 @@ namespace app_lp
         /// <returns> une liste des noms des entreprises </returns>
 
 
-        public  List<string> getNomEntreprises(string id_question_nom_entreprise)
+        public List<string> getNomEntreprises(string id_question_nom_entreprise)
         {
             List<string> nom_entreprises = new List<string>();
-      
-         foreach (AnswerTypeForm.Item field in json_answers.items)
+
+            if(json_answers.items == null)
+            {
+                return null;
+            }
+
+            foreach (AnswerTypeForm.Item field in json_answers.items)
             {
                 if (field.answers != null)
                 {
@@ -225,50 +237,57 @@ namespace app_lp
         /// <param name="form2"></param>
         /// <param name="nom_entreprise"></param>
         /// <returns>infos entreprise</returns>
-        public static InfoEntreprise getInfoEntrepriseForm1Form2(Formulaire1 form1,Formulaire2 form2,  string nom_entreprise)
-           {
-               InfoEntreprise entreprise_form1 =  form1.getInfosEntrepriseByNom(nom_entreprise);
-               InfoEntreprise entreprise_form2 = form2.getInfosEntrepriseByNom(nom_entreprise);
+        public static InfoEntreprise getInfoEntrepriseForm1Form2(Formulaire1 form1, Formulaire2 form2, string nom_entreprise)
+        {
+            InfoEntreprise entreprise_form1 = form1.getInfosEntrepriseByNom(nom_entreprise);
+            InfoEntreprise entreprise_form2 = form2.getInfosEntrepriseByNom(nom_entreprise);
             string landing_id1 = form1.getLandingIdByNom(nom_entreprise);
             string landing_id2 = form2.getLandingIdByNom(nom_entreprise);
 
-            if(landing_id1 == null || landing_id2 == null)
+            if(landing_id1 == null && landing_id2 == null )
             {
                 return null;
             }
 
             InfoEntreprise merge_info_entreprise = new InfoEntreprise();
-
-            form1.AddInfos(merge_info_entreprise, landing_id1);
-            form2.AddInfos(merge_info_entreprise, landing_id2);
+            if(landing_id1 != null)
+            {
+                form1.AddInfos(merge_info_entreprise, landing_id1);
+            }
+            
+            if(landing_id2 != null)
+            {
+                form2.AddInfos(merge_info_entreprise, landing_id2);
+            }
+            
 
             return merge_info_entreprise;
-        } 
+        }
 
         /// <summary>
         /// cette fonction permet de recuper un landing_id
         /// </summary>
         /// <param name="name"></param>
         /// <returns>landing_id | null</returns>
-        public  string getLandingIdByNom(string name)
+        public string getLandingIdByNom(string name)
         {
             List<string> landing_id_list = getEntreprisesIdList();
             InfoEntreprise info = new InfoEntreprise();
-            foreach(string landing_id in landing_id_list)
+            foreach (string landing_id in landing_id_list)
             {
                 info = getInfoEntreprise(landing_id);
-                if(info != null && info.nomEntreprise != null && info.nomEntreprise.Equals(name))
-                
+                //item.nomEntreprise.Trim().ToLower().Equals(nom.Trim().ToLower())
+                if (info != null && info.nomEntreprise != null && info.nomEntreprise.Trim().ToLower().Equals(name.Trim().ToLower()))
+
                     return landing_id;
-                }
+            }
             return null;
         }
 
 
-            
+
     }
- 
 
-        
+
+
 }
-

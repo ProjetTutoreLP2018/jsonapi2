@@ -1,14 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
+
 using System.Text;
-using System.Threading.Tasks;
 
 namespace FormTypeForm
 {
-    /// <summary>
-    /// ces classes permettent de stocker les informations des formulaires  de type Json
-    /// </summary>
+
 
 
 
