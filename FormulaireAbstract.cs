@@ -48,6 +48,11 @@ namespace app_lp
 
 
             List<string> id_list = getEntreprisesIdList();
+            
+            if(id_list == null || id_list.Count == 0){
+                return null;
+            }
+            
             List<InfoEntreprise> infos_list = new List<InfoEntreprise>();
             if (infos_list == null)
                 return null;
