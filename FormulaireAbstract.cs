@@ -22,7 +22,10 @@ namespace app_lp
         /// <returns>InfoEntreprise|null</returns>
         public InfoEntreprise getInfosEntrepriseByNom(string nom)
         {
-            foreach (InfoEntreprise item in getInfoEntreprises())
+            List<InfoEntreprise> infos_entreprises = getInfoEntreprises();
+            if (infos_entreprises == null || infos_entreprises.Count == 0)
+                return null;
+            foreach (InfoEntreprise item in infos_entreprises)
             {
                 if (item.nomEntreprise != null)
                 {
@@ -46,6 +49,8 @@ namespace app_lp
 
             List<string> id_list = getEntreprisesIdList();
             List<InfoEntreprise> infos_list = new List<InfoEntreprise>();
+            if (infos_list == null)
+                return null;
             foreach (string id_entreprise in id_list)
             {
                 infos_list.Add(getInfoEntreprise(id_entreprise));
@@ -202,7 +207,7 @@ namespace app_lp
         {
             List<string> nom_entreprises = new List<string>();
 
-            if(json_answers.items == null)
+            if (json_answers.items == null)
             {
                 return null;
             }
@@ -244,22 +249,22 @@ namespace app_lp
             string landing_id1 = form1.getLandingIdByNom(nom_entreprise);
             string landing_id2 = form2.getLandingIdByNom(nom_entreprise);
 
-            if(landing_id1 == null && landing_id2 == null )
+            if (landing_id1 == null && landing_id2 == null)
             {
                 return null;
             }
 
             InfoEntreprise merge_info_entreprise = new InfoEntreprise();
-            if(landing_id1 != null)
+            if (landing_id1 != null)
             {
                 form1.AddInfos(merge_info_entreprise, landing_id1);
             }
-            
-            if(landing_id2 != null)
+
+            if (landing_id2 != null)
             {
                 form2.AddInfos(merge_info_entreprise, landing_id2);
             }
-            
+
 
             return merge_info_entreprise;
         }
@@ -272,7 +277,12 @@ namespace app_lp
         public string getLandingIdByNom(string name)
         {
             List<string> landing_id_list = getEntreprisesIdList();
+           
             InfoEntreprise info = new InfoEntreprise();
+
+            if (landing_id_list == null)
+                return null;
+
             foreach (string landing_id in landing_id_list)
             {
                 info = getInfoEntreprise(landing_id);
